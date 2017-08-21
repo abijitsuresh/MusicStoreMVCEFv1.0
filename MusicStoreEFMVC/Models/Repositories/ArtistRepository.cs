@@ -11,5 +11,19 @@ namespace MusicStoreEFMVC.Models.Repositories
         {
             return DbSet.Where(a => a.Name.Contains(name)).ToList();
         }
+
+        public List<SoloArtist> GetSoloArtist()
+        {
+            return DbSet.OfType<SoloArtist>().ToList();
+        }
+
+        public override void Update(Artist entity)
+        {
+            base.Update(entity);
+            SaveChanges();
+            entity.version++;
+            base.Update(entity);
+            SaveChanges();
+        }
     }
 }

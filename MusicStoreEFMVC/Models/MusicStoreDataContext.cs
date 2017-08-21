@@ -10,5 +10,7 @@ namespace MusicStoreEFMVC.Models
     {
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Album> Albums { get; set; }
+
+        public System.Data.Entity.DbSet<MusicStoreEFMVC.Models.ArtistDetails> ArtistDetails { get; set; }
     }
 }

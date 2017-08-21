@@ -2,6 +2,7 @@
 using MusicStoreEFMVC.Models.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -24,8 +25,6 @@ namespace MusicStoreEFMVC.Controllers
             {
                 return View(artist);
             }
-
-
         }
 
         // GET: Artists
@@ -48,6 +47,38 @@ namespace MusicStoreEFMVC.Controllers
             repository.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var artist = repository.Get(id);
+            if (artist == null) return HttpNotFound();
+            else return View(artist);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Artist artist)
+        {
+            if (!ModelState.IsValid) return View(artist);
+
+            try
+            {
+                repository.Update(artist);
+                repository.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException)
+            {
+                ViewBag.Message = "Sorry, that didn't work!!";
+                return View(artist);
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            repository.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
