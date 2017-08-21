@@ -12,7 +12,8 @@ namespace MusicStoreEFMVC.Models
         [Required()]
         [StringLength(100, MinimumLength = 2)]
         public string Name { get; set; }
-        public virtual List<Album> Albums { get; set; }
+        public virtual List<Album> Albums { get; set; } // Many-one relationship
+        public virtual ArtistDetails ArtistDetails { get; set; } //One - one relationship with ArtistDetails        
 
     }
 }

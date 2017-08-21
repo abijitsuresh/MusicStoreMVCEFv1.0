@@ -22,7 +22,11 @@ namespace MusicStoreEFMVC.Models
                 Title = "Third ALbum"
             });
 
-            
+            context.Artists.Add(new SoloArtist()
+            {
+                Name = "Solo Artist",
+                Instrument = "Guitar"
+            });
 
             context.SaveChanges(); 
         }
